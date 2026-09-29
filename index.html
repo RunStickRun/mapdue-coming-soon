@@ -48,7 +48,10 @@ html,body{min-height:100%;background:#F7F4EC;font-family:Inter,system-ui,sans-se
         class="hero"
         autoplay
         muted
+        defaultmuted
         playsinline
+        webkit-playsinline
+        preload="auto"
         poster="hero-poster.png"
         aria-label="MapDude — MapDue mascot"
       >
@@ -56,6 +59,34 @@ html,body{min-height:100%;background:#F7F4EC;font-family:Inter,system-ui,sans-se
         <img src="mascot-char.png" alt="MapDude — MapDue mascot">
       </video>
       </div>
+      <script>
+      (function () {
+        var v = document.querySelector("video.hero");
+        if (!v) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          v.removeAttribute("autoplay");
+          v.pause();
+          return;
+        }
+        v.muted = true;
+        v.defaultMuted = true;
+        v.playsInline = true;
+        v.setAttribute("muted", "");
+        v.setAttribute("playsinline", "");
+        v.setAttribute("webkit-playsinline", "");
+        function kick() {
+          var p = v.play();
+          if (p && typeof p.catch === "function") p.catch(function () {});
+        }
+        if (v.readyState >= 2) kick();
+        v.addEventListener("loadeddata", kick, { once: true });
+        v.addEventListener("canplay", kick, { once: true });
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden && v.paused) kick();
+        });
+        kick();
+      })();
+      </script>
       <h1 class="h1">Run the property.<br><span>End to end.</span></h1>
       <div class="goldline"></div>
       <p class="sub">For commercial sites and field teams — assets, inventory, maintenance, and vendors in one place.</p>
