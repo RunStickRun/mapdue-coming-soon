@@ -23,7 +23,7 @@ html,body{min-height:100%;background:#F7F4EC;font-family:Inter,system-ui,sans-se
 .hero{
   width:100%;
   height:auto;
-  aspect-ratio:1000/580;
+  aspect-ratio:16/9;
   display:block;
   object-fit:contain;
   background:transparent;
@@ -49,6 +49,7 @@ html,body{min-height:100%;background:#F7F4EC;font-family:Inter,system-ui,sans-se
         autoplay
         muted
         defaultmuted
+        loop
         playsinline
         webkit-playsinline
         preload="auto"
@@ -70,8 +71,10 @@ html,body{min-height:100%;background:#F7F4EC;font-family:Inter,system-ui,sans-se
         }
         v.muted = true;
         v.defaultMuted = true;
+        v.loop = true;
         v.playsInline = true;
         v.setAttribute("muted", "");
+        v.setAttribute("loop", "");
         v.setAttribute("playsinline", "");
         v.setAttribute("webkit-playsinline", "");
         function kick() {
